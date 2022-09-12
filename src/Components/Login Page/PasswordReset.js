@@ -17,12 +17,14 @@ function PasswordReset() {
     try {
       console.log(password);
       console.log(passwordCnf);
-      let res = await axios.patch("/api/v1/auth/restPassword", {
-        otp: otpPassEmail,
-        email: resetPassEmail,
-        password: password,
-        ConfirmPassword: passwordCnf,
-      });
+      let res = await axios.patch("https://cult-food-app.herokuapp.com/api/v1/auth/restPassword",
+        {
+          otp: otpPassEmail,
+          email: resetPassEmail,
+          password: password,
+          ConfirmPassword: passwordCnf,
+        }
+      );
       console.log(res);
       if (res.status == 201) {
         alert("password changed successfully");

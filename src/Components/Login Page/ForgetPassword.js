@@ -11,7 +11,9 @@ function ForgetPassword() {
     const sendEmail = async() =>{
         // resqest => forgortPass Route
         try{
-           let res = await axios.patch("/api/v1/auth/forgotPassword" , {email});
+           let res = await axios.patch("https://cult-food-app.herokuapp.com/api/v1/auth/forgotPassword",
+             { email }
+           );
            console.log(res.status);
              if(res.status ==201) {
                alert("Mail send to your registerd email ID");

@@ -21,12 +21,14 @@ function AuthProvider({ children }) {
       
       setLoading(true);
       console.log("signup will be here");
-      let res = await axios.post("/api/v1/auth/signup", {
-        name: name,
-        password: password,
-        ConfirmPassword: confirm,
-        email,
-      });
+      let res = await axios.post("https://cult-food-app.herokuapp.com/api/v1/auth/signup",
+        {
+          name: name,
+          password: password,
+          ConfirmPassword: confirm,
+          email,
+        }
+      );
       if (res.status == 201) {
         alert("user signed up");
       }
@@ -44,10 +46,12 @@ function AuthProvider({ children }) {
     let flag = true;
     try {
       setLoading(true);
-      const res = await axios.post("/api/v1/auth/login", {
-        email: email,
-        password: password,
-      }) 
+      const res = await axios.post("https://cult-food-app.herokuapp.com/api/v1/auth/login",
+        {
+          email: email,
+          password: password,
+        }
+      ); 
         if(res.status ==200){
          userSet(res.data.user);
          setLoading(false);

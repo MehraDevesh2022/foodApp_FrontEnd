@@ -8,7 +8,8 @@ function AllPlans() {
     const [arr, arrset] = useState([]);
     useEffect(async () => {
         try {
-            const res = await axios.get("/api/v1/plan");
+            const res = await axios.get("https://cult-food-app.herokuapp.com/api/v1/plan"
+            );
             // console.log(res.data);
             arrset(res.data.allPlans);
         } catch (err) {
