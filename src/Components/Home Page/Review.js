@@ -8,7 +8,8 @@ function Review() {
 
     useEffect(async () => {
         try {
-            const data = await axios.get("/api/top3reviews");
+            const data = await axios.get("https://cult-food-app.herokuapp.com/api/v1/review"
+            );
             setarr(data.data.reviews);
         } catch (err) {
             console.log(err);

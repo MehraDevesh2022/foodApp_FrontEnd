@@ -9,7 +9,8 @@ function Plans() {
 
     useEffect(async () => {
         try {
-            const data = await axios.get("/api/gettop3");
+            const data = await axios.get("https://cult-food-app.herokuapp.com/api/v1/plan"
+            );
             arrset(data.data.data);
             console.log(data.data);
         } catch (err) {
