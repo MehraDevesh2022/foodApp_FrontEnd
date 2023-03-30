@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import '../Styles/login.css';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../Context/AuthProvider';
 
-function Signup(props) {
+function Signup() {
     // react-router-dom
     const history = useHistory();
     const { signUp } = useAuth()
@@ -14,7 +13,7 @@ function Signup(props) {
     const [confirm, setConfirm] = useState("");
     const handleSignup = async () => {
         try {
-            console.log("sending request");
+
             // do signup
             await signUp(name, password, email, confirm);
             // send user to login 
