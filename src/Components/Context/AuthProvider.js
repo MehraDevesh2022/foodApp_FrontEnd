@@ -1,27 +1,29 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
+
 export const AuthContext = React.createContext();
 //custom hook that allows components to access context data
 export function useAuth() {
   return useContext(AuthContext);
 }
-// sync -> if you have a user or not on login and logout
-// It also exposes you lossley coupled auth functions
-//
+
 function AuthProvider({ children }) {
-  // const history = useHistory();
+
   const [user, userSet] = useState("");
   const [loading, setLoading] = useState(false);
   const [resetPassEmail, setResetEmail] = useState(null);
   const [otpPassEmail, setOtpPassEmail] = useState(null);
+   const history = useHistory();  
+
 
   async function signUp(name, password, email, confirm) {
     try {
       
       setLoading(true);
-      console.log("signup will be here");
-      let res = await axios.post("https://cult-food-app.herokuapp.com/api/v1/auth/signup",
+    console.log("auth hits", name);
+
+      let res = await axios.post("/api/v1/auth/signup",
         {
           name: name,
           password: password,
@@ -29,13 +31,13 @@ function AuthProvider({ children }) {
           email,
         }
       );
-      if (res.status == 201) {
+      if (res.status === 201) {
         alert("user signed up");
       }
       setLoading(false);
     } catch (err) {
-      console.log("err", err.message);
-      if(err.message == "Request failed with status code 400")
+   
+      if(err.message === "Request failed with status code 400")
         alert("imporper user data entry");
 
       setLoading(false);
@@ -46,38 +48,39 @@ function AuthProvider({ children }) {
     let flag = true;
     try {
       setLoading(true);
-      const res = await axios.post("https://cult-food-app.herokuapp.com/api/v1/auth/login",
+      const res = await axios.post("/api/v1/auth/login",
         {
           email: email,
           password: password,
         }
       ); 
-        if(res.status ==200){
+        if(res.status ===200){
          userSet(res.data.user);
          setLoading(false);
          return flag;
         }
     } catch (err) {
        flag = false;
-       console.log(err.message);
-       if (err.message == "Request failed with status code 404") {
+    
+       if (err.message === "Request failed with status code 404") {
          alert("user not found signup first");
-       } else if (err.message == "Request failed with status code 400") {
+       } else if (err.message === "Request failed with status code 400") {
          alert("email and password may be wrong");
-       } else if (err.message == "Request failed with status code 500") {
+       } else if (err.message === "Request failed with status code 500") {
          alert("Internal server error");
        }
        setLoading(false);
         return flag;
     }
-   console.log("login will be here");
+
   }
 
   // logout :
   function logout() {
     localStorage.removeItem("user");
     userSet(null);
-    console.log("logout will come here");
+    history.push("/login");
+  
   }
 
   const value = {

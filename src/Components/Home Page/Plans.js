@@ -7,15 +7,18 @@ import { Link } from 'react-router-dom';
 function Plans() {
     const [arr, arrset] = useState([]);
 
-    useEffect(async () => {
-        try {
-            const data = await axios.get("https://cult-food-app.herokuapp.com/api/v1/plan"
+    useEffect(() => {
+      const getdata = async () => {
+          try {
+            const data = await axios.get("api/v1/plan"
             );
             arrset(data.data.data);
             console.log(data.data);
         } catch (err) {
             console.log(err);
         }
+    }
+    getdata();
     }, [])
 
     return (

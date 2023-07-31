@@ -6,15 +6,16 @@ import { Link } from 'react-router-dom';
 
 function AllPlans() {
     const [arr, arrset] = useState([]);
-    useEffect(async () => {
-        try {
-            const res = await axios.get("https://cult-food-app.herokuapp.com/api/v1/plan"
-            );
-            // console.log(res.data);
-            arrset(res.data.allPlans);
-        } catch (err) {
-            console.log(err);
+    useEffect(() => {
+        const getdata = async () => {
+            try {
+                const data = await axios.get('/api/v1/plan');
+                arrset(data.data.data.data);
+            } catch (error) {
+                console.log(error);
+            }
         }
+        getdata();
     }, [])
     return (
         <div className='allplansCard'>

@@ -14,7 +14,10 @@ function Signup() {
     const handleSignup = async () => {
         try {
 
-            // do signup
+             console.log("name", name);
+              console.log("password", password);
+                console.log("email", email);
+                 console.log("confirm", confirm);
             await signUp(name, password, email, confirm);
             // send user to login 
             history.push("/login");
